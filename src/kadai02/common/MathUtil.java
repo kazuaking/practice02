@@ -9,7 +9,7 @@ public class MathUtil {
 	 * @return 引数1を引数2回掛けた結果
 	 */
 
-	public double getPow (double num, int beki) {
+	public double calculatePow (double num, int beki) {
 
 		// 返り値を格納する変数を宣言
 		double bekijo = 1.0d;

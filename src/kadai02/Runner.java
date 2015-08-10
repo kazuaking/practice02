@@ -5,62 +5,108 @@ import kadai02.calculator.Lcm;
 import kadai02.calculator.Rohrer;
 import kadai02.calculator.Round;
 
-// テスト
 public class Runner {
 
+	/**
+	 * 計算処理、結果の表示を行います
+	 * @param args 入力値
+	 */
 	public static void main(String[] args) {
 
-		String result = "";
-		String detail = "";
+		/*
+		【次回課題のメモ】
+		1こめ ｺﾚ
+		String[] details = new String[10];
+		String[] results = new String[10];
 
-		if ("Round".equals(args[0])) {
+		2ｺﾒ インターフェイスがあるとできるやつ
+		Object[] calculators = new Object[10];
 
-			Round round = new Round();
 
-			round.num = args[1];
-			round.keta = args[2];
+		はっしゅ　つぎの課題
+		HashMap<String, String> all_results = new HashMap<String, String>();
+		*/
 
-			detail = ("num = " + round.num + ",keta = " + round.keta);
+		// 結果を格納する配列、繰り返し回数を格納する変数の初期化
+		String[] details = new String[10];
+		String[] results = new String[10];
+		int x = 0;
 
-			result = String.valueOf(round.result());
+		// 入力値を引数として各計算のインスタンスを生成
+		Round round = new Round(args[1], args[2]);
+		Rohrer rohrer = new Rohrer(args[1], args[2]);
+		Dcm dcm = new Dcm(args[1], args[2]);
+		Lcm lcm = new Lcm(args[1], args[2]);
 
-		} else if ("Rohrer".equals(args[0])) {
+		switch (args[0]) {
 
-			Rohrer rohrer = new Rohrer();
+		// 計算方法に「Round」と入力された場合
+		case "Round" :
 
-			rohrer.weight =  args[1];
-			rohrer.height =  args[2];
+			details[0] = round.detail();
+			results[0] = round.result();
+			x = 1;
 
-			rohrer.getValue = rohrer.getRohrer();
+			break;
 
-			detail = ("体重：" + rohrer.weight + ", 身長：" + rohrer.height + "\nローレル指数 = " + rohrer.getValue);
+		// 計算方法に「Rohrer」と入力された場合
+		case "Rohrer" :
 
-			result = rohrer.result();
+			details[0] = rohrer.detail();
+			results[0] = rohrer.result();
+			x = 1;
 
-		} else if ("Dcm".equals(args[0])) {
+			break;
 
-			Dcm dcm = new Dcm();
+		// 計算方法に「Dcm」と入力された場合
+		case "Dcm" :
 
-			dcm.num1 = args[1];
-			dcm.num2 = args[2];
+			details[0] = dcm.detail();
+			results[0] = dcm.result();
+			x = 1;
 
-			detail = ("引数1 = " + dcm.num1 + ", 引数2 = " + dcm.num2);
+			break;
 
-			result = String.valueOf(dcm.result());
+		// 計算方法に「Lcm」と入力された場合
+		case "Lcm" :
 
-		} else if ("Lcm".equals(args[0])) {
+			details[0] = lcm.detail();
+			results[0] = lcm.result();
+			x = 1;
 
-			Lcm lcm = new Lcm();
+			break;
 
-			lcm.num1 = args[1];
-			lcm.num2 = args[2];
+		// 計算方法に「All」と入力された場合
+		case "All" :
 
-			detail = ("引数1 = " + lcm.num1 + ", 引数2 = " + lcm.num2);
+			details[0] = round.detail();
+			details[1] = rohrer.detail();
+			details[2] = dcm.detail();
+			details[3] = lcm.detail();
 
-			result = String.valueOf(lcm.result());
+			results[0] = round.result();
+			results[1] = rohrer.result();
+			results[2] = dcm.result();
+			results[3] = lcm.result();
+
+			x = 4;
+
+			break;
+
+		default :
+
+			System.out.println("*計算方法 = " + args[0]);
+			System.out.println("*入力値エラー：\"" + args[0] + "\"は計算方法にありません。入力しなおしてください");
+
+			System.exit(1);
 		}
 
-		System.out.println(detail);
-		System.out.println("結果 = " + result);
+		System.out.println("★計算方法 = " + args[0] + "\n");
+
+		for (int i = 0; i < x; i++){
+
+			System.out.println(details[i]);
+			System.out.println(results[i] + "\n");
+		}
 	}
 }
